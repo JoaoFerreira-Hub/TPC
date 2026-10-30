@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treino de Halloween · 3.º ano</title>
+<style>
+:root{--bg:#1f1535;--card:#2c1f4a;--card2:#3a2a60;--tx:#fff7ea;--mut:#c9bde6;--or:#ff9a1f;--or2:#ffc266;--ok:#5fd38d;--no:#ff6b6b;--ac:#9b7bff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;font-size:20px;line-height:1.35;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:760px;margin:0 auto;padding:14px 16px 60px}
+header{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:26px;margin:6px 0}
+h2{font-size:23px;margin:4px 0 10px;color:var(--or2)}
+.deco{font-size:30px;letter-spacing:6px}
+.tabs{display:flex;gap:8px;margin:8px 0 14px}
+.tab{flex:1;padding:12px 8px;border-radius:14px;border:2px solid var(--card2);background:var(--card);color:var(--tx);font:inherit;font-weight:700;cursor:pointer}
+.tab.on{background:var(--or);color:#2a1500;border-color:var(--or)}
+.panel{background:var(--card);border-radius:20px;padding:18px;border:2px solid var(--card2);position:relative}
+details{background:var(--card);border-radius:14px;padding:10px 14px;margin:8px 0;border:1px solid var(--card2);font-size:17px}
+summary{cursor:pointer;font-weight:700;color:var(--or2)}
+button.big{font:inherit;font-weight:800;border:none;border-radius:16px;padding:14px 22px;min-height:58px;cursor:pointer;background:var(--or);color:#2a1500}
+button.big:disabled{opacity:.4}
+button.sec{background:var(--card2);color:var(--tx)}
+.row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:12px 0}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.mc{background:var(--card2);border-radius:14px;padding:8px 2px;text-align:center;min-height:78px;opacity:.18;transition:.3s}
+.mc.show{opacity:1;transform:scale(1)}
+.mc.pop{animation:pop .5s}
+.mc small{display:block;font-size:14px;color:var(--mut)}
+.mc b{font-size:30px}
+.mc .t{color:var(--mut)}
+.mc .u{color:var(--or);text-shadow:0 0 12px #ff9a1f66}
+@keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+.strip{display:flex;align-items:center;justify-content:center;gap:6px;margin:10px 0;flex-wrap:wrap}
+.dot{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;background:var(--card2);color:var(--mut);border:3px solid transparent}
+.dot.hl{background:var(--or);color:#2a1500;border-color:#fff}
+.dot.seen{background:#5a3d10;color:var(--or2)}
+.arrow{color:var(--mut);font-size:22px}
+.msg{min-height:56px;font-size:20px;text-align:center;margin:8px 0}
+.q{font-size:44px;font-weight:800;text-align:center;margin:8px 0}
+.q .u{color:var(--or)}
+.opts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.opt{font:inherit;font-size:34px;font-weight:800;min-width:92px;min-height:76px;border-radius:18px;border:3px solid var(--card2);background:var(--card2);color:var(--tx);cursor:pointer}
+.opt.bad{background:var(--no);border-color:var(--no);color:#fff;animation:sh .4s}
+.opt.good{background:var(--ok);border-color:var(--ok);color:#06280f}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.prog{height:12px;background:var(--card2);border-radius:8px;overflow:hidden;margin:6px 0 12px}
+.prog i{display:block;height:100%;background:var(--or);width:0;transition:.4s}
+.hint{background:#2a1d44;border-radius:14px;padding:10px;text-align:center;margin-top:8px;font-size:18px}
+.pts{display:flex;flex-direction:column;gap:3px;align-items:center;margin-top:6px}
+.pts div{display:flex;gap:4px;align-items:center}
+.pts span{width:12px;height:12px;border-radius:50%;background:var(--or)}
+.pts em{font-style:normal;font-size:13px;color:var(--mut);margin-left:6px;width:20px;text-align:left}
+.pump{font:inherit;position:relative;width:132px;height:132px;border:none;background:none;cursor:pointer;padding:0}
+.pump .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#2a1500;z-index:2;padding-top:18px}
+.pump .body{position:absolute;inset:6px 0 0 0;border-radius:50% 50% 46% 46%;background:radial-gradient(circle at 35% 30%,#ffb347,#ff7a00 60%,#d45a00)}
+.pump:before{content:"";position:absolute;left:58px;top:0;width:16px;height:20px;background:#4d8f3c;border-radius:6px 6px 0 0;z-index:1}
+.pump.bad{animation:sh .4s;filter:grayscale(.6)}
+.pump.good .body{background:radial-gradient(circle at 35% 30%,#9df0b6,#3fbf6c 60%,#228a47)}
+.candle{height:16px;background:#4a3a2a;border-radius:8px;overflow:hidden;margin:6px 0}
+.candle i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#ffd27a,#ff9a1f);transform-origin:left}
+.big-msg{font-size:28px;text-align:center;font-weight:800;margin:12px 0}
+.score{font-size:19px;background:#2a1d44;border-radius:14px;padding:12px;text-align:center;margin:10px 0}
+.hide{display:none}
+@media (max-width:480px){body{font-size:18px}.q{font-size:36px}.pump{width:104px;height:104px}.pump .face{font-size:26px;padding-top:14px}.pump:before{left:44px}.dot{width:46px;height:46px;font-size:24px}.mc b{font-size:24px}}
+.q2{font-size:30px;text-align:center;margin:12px 0;line-height:1.5}
+.opt.w{font-size:26px;min-width:120px;padding:0 16px}
+mark{background:var(--or);color:#2a1500;border-radius:8px;padding:0 8px;font-weight:800}
+.blank{display:inline-block;min-width:90px;border-bottom:4px solid var(--or)}
+.steps{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.step{font:inherit;font-size:20px;text-align:left;border-radius:16px;border:3px solid var(--card2);background:var(--card2);color:var(--tx);padding:12px 14px;min-height:64px;cursor:pointer;display:flex;gap:12px;align-items:center}
+.step b{background:var(--or);color:#2a1500;border-radius:50%;min-width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+.step.done{background:var(--ok);border-color:var(--ok);color:#06280f}
+.step.bad{animation:sh .4s;border-color:var(--no)}
+.lembrar{font-size:17px}
+.lembrar li{margin:4px 0}
+@media (max-width:480px){.q2{font-size:24px}.opt.w{font-size:22px;min-width:96px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>🎃 Treino de Halloween</h1><div class="deco" aria-hidden="true">👻🦇</div></header>
+
+<details>
+<summary>Para os pais</summary>
+<p>Treino em casa do que a turma já trabalhou, no telemóvel ou no tablet. Cada disciplina demora cerca de 10 a 15 minutos e a criança pode fazer sozinha. Escolhe-se a disciplina nos botões de cima.</p>
+<p><b>Matemática:</b> tabuada do 6. O treino mostra que os algarismos das unidades seguem a sequência 6, 2, 8, 4, 0 e usa-a para acertar nos resultados; depois treina-se trocar os fatores. Segue-se um jogo de apanhar abóboras.</p>
+<p><b>Português:</b> classificar palavras (nome, adjetivo, pronome pessoal e verbo), trocar nomes por pronomes, fazer os adjetivos concordar e descobrir o intruso.</p>
+<p><b>Estudo do Meio:</b> em que século fica cada ano, quantos anos tem uma década, um século e um milénio, e o que fazer numa hemorragia ou numa ferida.</p>
+<p>Quando erra, a página mostra uma ajuda e deixa tentar outra vez. No fim de cada parte aparece quantas respondeu certas à primeira, só para vocês verem: não é enviado a ninguém.</p>
+</details>
+
+<div class="tabs">
+<button class="tab on" id="sMat">Matemática</button>
+<button class="tab" id="sPt">Português</button>
+<button class="tab" id="sEm">Estudo do Meio</button>
+</div>
+<div class="tabs" id="mathTabs">
+<button class="tab on" id="tTreino">Treino</button>
+<button class="tab" id="tJogo">Jogo: Caça às Abóboras</button>
+</div>
+<div class="panel" id="app"></div>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s), app=$("#app");
+const seq=[6,2,8,4,0];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const stripHTML=(hl=-1,seen=0)=>'<div class="strip" aria-label="sequência das unidades">'+seq.map((d,i)=>`<div class="dot ${i===hl?'hl':(i<seen?'seen':'')}">${d}</div>`+(i<4?'<span class="arrow">→</span>':'')).join('')+'<span class="arrow">↻</span></div>';
+const dotsHTML=n=>'<div class="pts">'+Array.from({length:n},(_,i)=>`<div><em>${i+1}</em>${'<span></span>'.repeat(6)}</div>`).join('')+'</div>';
+
+function setTab(t){$("#tTreino").classList.toggle("on",t==="treino");$("#tJogo").classList.toggle("on",t==="jogo");}
+$("#tTreino").onclick=()=>{setTab("treino");etapaA()};
+$("#tJogo").onclick=()=>{setTab("jogo");jogo()};
+
+/* ---------- ETAPA A: descobrir o truque ---------- */
+function etapaA(){
+  let shown=0;
+  app.innerHTML=`<h2>Etapa 1 · Descobre o truque</h2>
+  <p>Vamos juntar 6, uma vez atrás da outra. Olha para o número cor de laranja: são as <b>unidades</b>.</p>
+  <div class="cards" id="cards">${Array.from({length:10},(_,i)=>{const p=6*(i+1);return `<div class="mc" id="mc${i}"><small>6 × ${i+1}</small><b><span class="t">${p>=10?Math.floor(p/10):''}</span><span class="u">${p%10}</span></b></div>`}).join('')}</div>
+  <div id="sA">${stripHTML(-1,0)}</div>
+  <div class="msg" id="mA">Toca em «+ 6» para juntar o primeiro grupo.</div>
+  <div class="row"><button class="big" id="bA">+ 6</button><button class="big sec hide" id="nA">Etapa 2 →</button></div>`;
+  const msgs={1:"6 × 1 = 6. As unidades começam em 6.",2:"Juntámos mais 6: 12. As unidades passaram para 2.",3:"Mais 6: 18. As unidades são 8.",4:"Mais 6: 24. As unidades são 4.",5:"Mais 6: 30. As unidades são 0. Repara: <b>6 · 2 · 8 · 4 · 0</b>. A seguir volta ao início!",6:"36: voltou o 6. A sequência recomeçou.",7:"42: voltou o 2.",8:"48: voltou o 8.",9:"54: voltou o 4.",10:"60: voltou o 0. A sequência <b>6 · 2 · 8 · 4 · 0</b> repete-se sempre. Só tens de descobrir as dezenas."};
+  $("#bA").onclick=()=>{
+    if(shown>=10)return;
+    const el=$("#mc"+shown);el.classList.add("show","pop");shown++;
+    $("#sA").innerHTML=stripHTML((shown-1)%5,Math.min(shown-1,5));
+    $("#mA").innerHTML=msgs[shown];
+    if(shown===10){$("#bA").classList.add("hide");$("#nA").classList.remove("hide")}
+  };
+  $("#nA").onclick=etapaB;
+}
+
+/* ---------- ETAPA B: unidades pela sequência, depois resultado ---------- */
+function opcoesProduto(p){
+  let o=[p-10,p,p+10].filter(x=>x>=0);
+  while(o.length<3)o.push(Math.max(...o)+10);
+  return shuf(o);
+}
+function etapaB(){
+  const ordem=shuf([1,2,3,4,5,6,7,8,9,10]);let i=0,fase=1,errosQ=0;
+  function render(){
+    if(i>=ordem.length){return fim()}
+    const n=ordem[i],p=6*n,u=p%10;
+    $("#pB").style.width=(i/ordem.length*100)+"%";
+    if(fase===1){
+      app.querySelector("#qB").innerHTML=`6 × ${n} = <span class="u">?</span>`;
+      app.querySelector("#iB").textContent="Primeiro, as unidades. Qual é o algarismo das unidades?";
+      app.querySelector("#oB").innerHTML=[0,2,4,6,8].map(d=>`<button class="opt" data-d="${d}">${d}</button>`).join("");
+      app.querySelector("#hB").innerHTML="";
+      app.querySelectorAll("#oB .opt").forEach(b=>b.onclick=()=>{
+        if(+b.dataset.d===u){b.classList.add("good");fase=2;errosQ=0;setTimeout(render,450)}
+        else{b.classList.add("bad");errosQ++;$("#hB").innerHTML=`<div class="hint">Olha para a sequência. 6 × ${n} é o ${n}.º grupo.${stripHTML((n-1)%5,0)}</div>`}
+      });
+    }else{
+      app.querySelector("#qB").innerHTML=`6 × ${n} = <span class="u">?</span>`;
+      app.querySelector("#iB").innerHTML=`As unidades são <b style="color:var(--or)">${u}</b>. Qual é o resultado?`;
+      app.querySelector("#oB").innerHTML=opcoesProduto(p).map(x=>`<button class="opt" data-x="${x}">${x}</button>`).join("");
+      app.querySelector("#hB").innerHTML="";
+      app.querySelectorAll("#oB .opt").forEach(b=>b.onclick=()=>{
+        if(+b.dataset.x===p){b.classList.add("good");app.querySelector("#qB").innerHTML=`6 × ${n} = <span class="u">${p}</span> ✓`;fase=1;i++;setTimeout(render,900)}
+        else{b.classList.add("bad");$("#hB").innerHTML=`<div class="hint">As unidades estão certas. Falta acertar nas dezenas: conta de 6 em 6 a partir do resultado anterior (6 × ${n-1} = ${6*(n-1)}).</div>`}
+      });
+    }
+  }
+  function fim(){
+    app.innerHTML=`<h2>Etapa 2 · Feito!</h2><div class="big-msg">Já usas a sequência das unidades. 🎉</div>${stripHTML()}<div class="row"><button class="big" id="nB">Etapa 3 →</button></div>`;
+    $("#nB").onclick=etapaC;
+  }
+  app.innerHTML=`<h2>Etapa 2 · Usa a sequência</h2><div class="prog"><i id="pB"></i></div>
+  <div class="q" id="qB"></div><div class="msg" id="iB"></div><div class="opts" id="oB"></div><div id="hB"></div>
+  <div class="row"><button class="big sec" id="vB">Ver a sequência</button></div><div id="sB"></div>`;
+  $("#vB").onclick=()=>{$("#sB").innerHTML=stripHTML()};
+  render();
+}
+
+/* ---------- ETAPA C: trocar os fatores ---------- */
+function etapaC(){
+  const ordem=shuf([2,3,4,5,7,8,9,10]).slice(0,5);let i=0;
+  function render(){
+    if(i>=ordem.length){
+      app.innerHTML=`<h2>Etapa 3 · Feito!</h2><div class="big-msg">Trocar os fatores não muda o resultado. 🎉</div><div class="msg">Já podes jogar à Caça às Abóboras.</div><div class="row"><button class="big" id="jg">Jogar 🎃</button></div>`;
+      $("#jg").onclick=()=>{setTab("jogo");jogo()};return;
+    }
+    const n=ordem[i],p=6*n;
+    $("#pC").style.width=(i/ordem.length*100)+"%";
+    const op=shuf([p,p+6,p-6]);
+    app.querySelector("#qC").innerHTML=`<small style="font-size:24px;color:var(--mut)">Já sabes: 6 × ${n} = ${p}</small><br>${n} × 6 = <span class="u">?</span>`;
+    app.querySelector("#oC").innerHTML=op.map(x=>`<button class="opt" data-x="${x}">${x}</button>`).join("");
+    app.querySelector("#hC").innerHTML="";
+    app.querySelectorAll("#oC .opt").forEach(b=>b.onclick=()=>{
+      if(+b.dataset.x===p){b.classList.add("good");app.querySelector("#hC").innerHTML=`<div class="hint"><b>${n} × 6 = 6 × ${n} = ${p}</b>. Os mesmos grupos, só mudou a ordem.</div>`;i++;setTimeout(render,1300)}
+      else{b.classList.add("bad");app.querySelector("#hC").innerHTML=`<div class="hint">Troca os fatores: ${n} × 6 é o mesmo que 6 × ${n}.</div>`}
+    });
+  }
+  app.innerHTML=`<h2>Etapa 3 · Troca os fatores</h2><div class="prog"><i id="pC"></i></div><div class="q" id="qC"></div><div class="opts" id="oC"></div><div id="hC"></div>`;
+  render();
+}
+
+/* ---------- JOGO: Caça às Abóboras ---------- */
+function jogo(){
+  const ns=shuf([2,3,4,5,6,7,8,9,10]);
+  const qs=[];
+  ns.slice(0,4).forEach(n=>qs.push({t:1,n}));
+  shuf(ns).filter(n=>n!==6).slice(0,4).forEach(n=>qs.push({t:2,n}));
+  shuf(ns).slice(0,4).forEach(n=>qs.push({t:3,n}));
+  let i=0,primeira=0,errou=false,timer=null;
+  function ops(q){
+    const p=6*q.n;
+    if(q.t<3){
+      const cand=[p-6,p+6,p-10,p+10,p+12].filter(x=>x>0&&x!==p);
+      return shuf([p,...shuf(cand).slice(0,2)]);
+    }
+    const cand=[q.n-1,q.n+1,q.n+2,q.n-2].filter(x=>x>0&&x!==q.n);
+    return shuf([q.n,...shuf(cand).slice(0,2)]);
+  }
+  function render(){
+    clearTimeout(timer);
+    if(i>=qs.length)return fim();
+    const q=qs[i],p=6*q.n;errou=false;
+    const rondaNome=["","Ronda 1 · 6 × n","Ronda 2 · n × 6","Ronda 3 · o fator que falta"][q.t];
+    const enun=q.t===1?`6 × ${q.n} = ?`:q.t===2?`${q.n} × 6 = ?`:`? × 6 = ${p}`;
+    $("#pJ").style.width=(i/qs.length*100)+"%";
+    $("#rJ").textContent=rondaNome+" · "+(i+1)+" de "+qs.length;
+    $("#qJ").textContent=enun;
+    const o=ops(q);
+    $("#oJ").innerHTML=o.map(x=>`<button class="pump" data-x="${x}" aria-label="${x}"><span class="body"></span><span class="face">${x}</span></button>`).join("");
+    $("#hJ").innerHTML="";
+    const correto=q.t<3?p:q.n;
+    const c=$("#cJ");c.style.transition="none";c.style.transform="scaleX(1)";void c.offsetWidth;c.style.transition="transform 14s linear";c.style.transform="scaleX(0)";
+    timer=setTimeout(()=>{errou=true;ajuda(q)},14000);
+    app.querySelectorAll("#oJ .pump").forEach(b=>b.onclick=()=>{
+      if(+b.dataset.x===correto){
+        clearTimeout(timer);b.classList.add("good");
+        if(!errou)primeira++;
+        $("#hJ").innerHTML=`<div class="hint">🎃 ${q.t===3?`${q.n} × 6 = ${p}`:`${enun.replace("?",p)}`}</div>`;
+        i++;setTimeout(render,1000);
+      }else{
+        b.classList.add("bad");errou=true;ajuda(q);
+      }
+    });
+  }
+  function ajuda(q){
+    $("#hJ").innerHTML=`<div class="hint">Vê os grupos de 6: ${q.n} grupos de 6.${dotsHTML(q.n)}</div>`;
+  }
+  function fim(){
+    clearTimeout(timer);
+    app.innerHTML=`<h2>Caça às Abóboras · Fim!</h2><div class="big-msg">Apanhaste todas as abóboras! 🎃👻</div>
+    <div class="score">Para os pais: acertou à primeira em <b>${primeira} de ${qs.length}</b>. Este resultado só aparece aqui e não é enviado a ninguém.</div>
+    <div class="row"><button class="big" id="jo">Jogar outra vez</button><button class="big sec" id="tr">Voltar ao treino</button></div>`;
+    $("#jo").onclick=jogo;$("#tr").onclick=()=>{setTab("treino");etapaA()};
+  }
+  app.innerHTML=`<h2>Caça às Abóboras</h2><div class="prog"><i id="pJ"></i></div>
+  <div class="msg" id="rJ" style="min-height:0;color:var(--mut);font-size:17px"></div>
+  <div class="q" id="qJ"></div>
+  <div class="candle" title="a vela"><i id="cJ"></i></div>
+  <div class="opts" id="oJ"></div><div id="hJ"></div>`;
+  render();
+}
+
+/* ---------- motor de perguntas (Português e Estudo do Meio) ---------- */
+function quiz(titulo,itens,refazer,extra=""){
+  let i=0,primeira=0,errou=false;
+  app.innerHTML=`<h2>${titulo}</h2>${extra}<div class="prog"><i id="qp"></i></div><div class="msg" id="qr" style="min-height:0;color:var(--mut);font-size:17px"></div><div id="qb"></div><div id="qh"></div>`;
+  function show(){
+    if(i>=itens.length)return fim();
+    const it=itens[i];errou=false;
+    $("#qp").style.width=(i/itens.length*100)+"%";
+    $("#qr").textContent=it.ronda+" · "+(i+1)+" de "+itens.length;
+    $("#qh").innerHTML="";
+    if(it.ordem)return ordenar(it);
+    $("#qb").innerHTML=`<div class="q2">${it.q}</div><div class="opts">${shuf(it.opts).map(o=>`<button class="opt w" data-c="${o.c?1:0}">${o.t}</button>`).join("")}</div>`;
+    document.querySelectorAll("#qb .opt").forEach(b=>b.onclick=()=>{
+      if(b.dataset.c==="1"){
+        b.classList.add("good");if(!errou)primeira++;
+        document.querySelectorAll("#qb .opt").forEach(x=>x.disabled=true);
+        $("#qh").innerHTML=`<div class="hint">✓ ${it.ok}</div>`;
+        i++;setTimeout(show,it.ok?1800:900);
+      }else{b.classList.add("bad");errou=true;$("#qh").innerHTML=`<div class="hint">${it.hint}</div>`}
+    });
+  }
+  function ordenar(it){
+    let pos=0,mau=false;
+    $("#qb").innerHTML=`<div class="q2">${it.q}</div><div class="steps">${shuf(it.ordem).map(t=>`<button class="step"><span>${t}</span></button>`).join("")}</div>`;
+    document.querySelectorAll("#qb .step").forEach(b=>b.onclick=()=>{
+      if(b.classList.contains("done"))return;
+      const t=b.querySelector("span").textContent;
+      if(t===it.ordem[pos]){
+        pos++;b.classList.add("done");b.insertAdjacentHTML("afterbegin",`<b>${pos}</b>`);$("#qh").innerHTML="";
+        if(pos===it.ordem.length){if(!mau)primeira++;$("#qh").innerHTML=`<div class="hint">✓ ${it.ok}</div>`;i++;setTimeout(show,2000)}
+      }else{b.classList.add("bad");setTimeout(()=>b.classList.remove("bad"),450);mau=true;$("#qh").innerHTML=`<div class="hint">Esse passo não é agora. Qual é o passo número ${pos+1}?</div>`}
+    });
+  }
+  function fim(){
+    app.innerHTML=`<h2>${titulo} · Fim!</h2><div class="big-msg">Muito bem! 🎉</div>
+    <div class="score">Para os pais: respondeu certo à primeira em <b>${primeira} de ${itens.length}</b>. Este resultado só aparece aqui e não é enviado a ninguém.</div>
+    <div class="row"><button class="big" id="qa">Jogar outra vez</button></div>`;
+    $("#qa").onclick=refazer;
+  }
+  show();
+}
+const classes=["nome","adjetivo","pronome pessoal","verbo"];
+const pistaClasses=`<div class="lembrar"><b>Lembra:</b><ul><li><b>nome</b>: pessoas, animais, coisas e lugares (avó, vento, gaveta)</li><li><b>adjetivo</b>: diz como é o nome (escura, velha)</li><li><b>pronome pessoal</b>: está no lugar do nome (eu, tu, ele, ela, nós, eles)</li><li><b>verbo</b>: diz o que se faz ou acontece (riu, apareceu)</li></ul></div>`;
+
+/* ---------- PORTUGUÊS: Receita da Bruxa ---------- */
+const frases=[
+ ["A avó apareceu com uma lanterna velha.",{"avó":"nome","apareceu":"verbo","lanterna":"nome","velha":"adjetivo"}],
+ ["Nós ficámos calados na sala escura.",{"Nós":"pronome pessoal","ficámos":"verbo","calados":"adjetivo","sala":"nome","escura":"adjetivo"}],
+ ["Ela sorriu e o Tomás agarrou a lanterna.",{"Ela":"pronome pessoal","sorriu":"verbo","Tomás":"nome","agarrou":"verbo","lanterna":"nome"}],
+ ["As velas pequenas não acendiam.",{"velas":"nome","pequenas":"adjetivo","acendiam":"verbo"}],
+ ["Eles inventaram histórias divertidas na escuridão.",{"Eles":"pronome pessoal","inventaram":"verbo","histórias":"nome","divertidas":"adjetivo","escuridão":"nome"}],
+ ["Tu ouves o vento forte?",{"Tu":"pronome pessoal","ouves":"verbo","vento":"nome","forte":"adjetivo"}],
+ ["A Inês fez figuras engraçadas nas paredes.",{"Inês":"nome","fez":"verbo","figuras":"nome","engraçadas":"adjetivo","paredes":"nome"}],
+ ["Eu guardei os fósforos húmidos na gaveta.",{"Eu":"pronome pessoal","guardei":"verbo","fósforos":"nome","húmidos":"adjetivo","gaveta":"nome"}]
+];
+function gramaticaItens(){
+  const it=[];
+  shuf(frases).slice(0,6).forEach(([f,m])=>{
+    const w=rnd(Object.keys(m));
+    const q=f.replace(w,`<mark>${w}</mark>`);
+    const certa=m[w];
+    it.push({ronda:"Frasco certo",q:`${q}<br><small style="font-size:20px;color:var(--mut)">Em que frasco guardas a palavra marcada?</small>`,
+      opts:classes.map(c=>({t:c,c:c===certa})),hint:pistaClasses,ok:`«${w}» é ${certa==="adjetivo"?"um adjetivo":certa==="nome"?"um nome":certa==="verbo"?"um verbo":"um pronome pessoal"}.`});
+  });
+  const pr=[["O Tomás agarrou a lanterna.","agarrou a lanterna.","Ele",["Ele","Ela","Nós"]],
+            ["A avó sorriu.","sorriu.","Ela",["Ela","Eles","Tu"]],
+            ["O Tomás e a Inês jogavam às cartas.","jogavam às cartas.","Eles",["Eles","Ele","Nós"]],
+            ["A avó e eu ficámos na sala.","ficámos na sala.","Nós",["Nós","Eles","Eu"]]];
+  shuf(pr).forEach(([a,b,c,o])=>it.push({ronda:"Troca por pronome",q:`${a}<br>→ <span class="blank"></span> ${b}`,opts:o.map(x=>({t:x,c:x===c})),
+    hint:"Quem faz a ação? Um só rapaz é «ele»; uma só rapariga é «ela»; duas ou mais pessoas são «eles»; quando falas tu e mais alguém é «nós».",ok:`${c} ${b}`}));
+  const adj=[["a sala <span class=\"blank\"></span> (escuro)",["escura","escuro","escuras"],"escura"],
+             ["as histórias <span class=\"blank\"></span> (divertido)",["divertidas","divertido","divertida"],"divertidas"],
+             ["os fósforos <span class=\"blank\"></span> (húmido)",["húmidos","húmido","húmida"],"húmidos"],
+             ["uma noite <span class=\"blank\"></span> (calmo)",["calma","calmo","calmas"],"calma"]];
+  shuf(adj).forEach(([q,o,c])=>it.push({ronda:"Adjetivo certo",q:q,opts:o.map(x=>({t:x,c:x===c})),
+    hint:"O adjetivo concorda com o nome. O nome é masculino ou feminino? Está no singular ou no plural?",ok:`${q.replace(/<span class="blank"><\/span> \(\w+\)/,"<b>"+c+"</b>")}`}));
+  const int=[["Três são adjetivos. Qual é o intruso?",["escura","pequenas","húmidos","lanterna"],"lanterna","«lanterna» é um nome."],
+             ["Três são nomes. Qual é o intruso?",["gaveta","sombras","avó","riu"],"riu","«riu» é um verbo."],
+             ["Três são verbos. Qual é o intruso?",["apareceu","juntou","riu","ela"],"ela","«ela» é um pronome pessoal."],
+             ["Três são pronomes pessoais. Qual é o intruso?",["nós","eles","tu","velas"],"velas","«velas» é um nome."]];
+  shuf(int).slice(0,3).forEach(([q,o,c,ok])=>it.push({ronda:"O intruso",q:q,opts:o.map(x=>({t:x,c:x===c})),hint:pistaClasses,ok:ok}));
+  return it;
+}
+function gramatica(){quiz("🧙 Receita da Bruxa",gramaticaItens(),gramatica,'<details class="lembrar"><summary>Lembrar as classes de palavras</summary>'+pistaClasses+'</details>')}
+
+/* ---------- ESTUDO DO MEIO: Fantasma dos Séculos + primeiros socorros ---------- */
+const anos=[1300,1380,1500,1640,1755,1850,1910,1957,2000,2026];
+const seculo=a=>a%100===0?a/100:Math.floor(a/100)+1;
+const regraSec='<div class="hint">Ano que acaba em dois zeros: as centenas dão o século (1300 → século 13).<br>Outro ano: soma 1 às centenas (1380 → 13 + 1 = século 14).</div>';
+function numOpcoes(ans){
+  const c=[ans*10,ans/10,ans*2,ans/2,ans+10,ans*5].filter(x=>Number.isInteger(x)&&x>0&&x!==ans);
+  return [ans,...shuf([...new Set(c)]).slice(0,2)];
+}
+function emItens(){
+  const it=[];
+  shuf(anos).slice(0,5).forEach(a=>{
+    const c=seculo(a);const certo=a%100===0?`${a/100} centenas: século ${c}.`:`${Math.floor(a/100)} + 1 = século ${c}.`;
+    it.push({ronda:"Fantasma dos Séculos",q:`👻 O ano <mark>${a}</mark> pertence ao século…`,opts:[c,c+1,c-1].map(x=>({t:String(x),c:x===c})),hint:regraSec,ok:certo});
+  });
+  const eq=[["1 década","anos",10],["4 décadas","anos",40],["1 século","anos",100],["1 século","décadas",10],["1 milénio","anos",1000],["1 milénio","séculos",10],["2 milénios","anos",2000],["500 anos","séculos",5]];
+  shuf(eq).slice(0,5).forEach(([a,u,r])=>it.push({ronda:"Quantos?",q:`${a} = <span class="blank"></span> ${u}`,opts:numOpcoes(r).map(x=>({t:String(x),c:x===r})),
+    hint:"1 década = 10 anos · 1 século = 100 anos · 1 milénio = 1000 anos",ok:`${a} = ${r} ${u}`}));
+  it.push({ronda:"Primeiros socorros",q:"Hemorragia nasal: põe os passos pela ordem em que os fazes.",
+    ordem:["Sentar a vítima, com o tronco e a cabeça ligeiramente inclinados para a frente","Pressionar a narina","Aplicar gelo","Colocar um tampão na narina, com uma compressa"],ok:"Muito bem. Esta é a ordem certa."});
+  it.push({ronda:"Primeiros socorros",q:"Um cão mordeu o braço do Pedro e a ferida quase não sangra. O que fazes?",
+    opts:[{t:"Lavo com água ou soro e vou ao hospital com o boletim de vacinas",c:true},{t:"Não faço nada, porque quase não sangra",c:false},{t:"Só ponho um penso e esqueço",c:false}],
+    hint:"Mesmo sem sangrar, a ferida pode ter bactérias que causam doenças graves.",ok:"Lava-se sempre a mordedura e vai-se ao hospital, onde se vê se é preciso a vacina do tétano."});
+  it.push({ronda:"Primeiros socorros",q:"Quando é que ligas o 112 numa hemorragia?",
+    opts:[{t:"Quando o sangramento não pára",c:true},{t:"Quando é um arranhão pequeno",c:false},{t:"Quando já parou de sangrar",c:false}],
+    hint:"O 112 é para quando é grave: pensa no sangue que não pára.",ok:"Também se liga quando a hemorragia é muito grande. Enquanto esperas, tenta estancar."});
+  return it;
+}
+function estudoMeio(){quiz("👻 Fantasma dos Séculos",emItens(),estudoMeio,'<details class="lembrar"><summary>Lembrar</summary><div class="hint" style="text-align:left">1 década = 10 anos · 1 século = 100 anos · 1 milénio = 1000 anos<br>Ano com dois zeros no fim: as centenas dão o século (1300 → século 13).<br>Outro ano: soma 1 às centenas (1380 → 13 + 1 = século 14).</div></details>')}
+
+/* ---------- escolha da disciplina ---------- */
+function setSubj(x){
+  $("#sMat").classList.toggle("on",x==="mat");$("#sPt").classList.toggle("on",x==="pt");$("#sEm").classList.toggle("on",x==="em");
+  $("#mathTabs").classList.toggle("hide",x!=="mat");
+  if(x==="mat"){setTab("treino");etapaA()}else if(x==="pt")gramatica();else estudoMeio();
+}
+$("#sMat").onclick=()=>setSubj("mat");$("#sPt").onclick=()=>setSubj("pt");$("#sEm").onclick=()=>setSubj("em");
+
+etapaA();
+</script>
+</body>
+</html>
